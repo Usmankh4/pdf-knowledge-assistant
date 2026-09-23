@@ -6,6 +6,9 @@ dist/
 build/
 *.tsbuildinfo
 
+# Uploaded PDFs from local testing
+server/uploads/
+
 # Environment files
 .env
 .env.*
