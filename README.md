@@ -1,19 +1,39 @@
 # PDF Knowledge Assistant
 
-Ask questions about your PDFs and get answers grounded in the document —
-a retrieval-augmented generation (RAG) app built with LangChain.
+An AI-powered chatbot that answers questions from your own PDF documents.
+Upload a PDF, ask questions in the chat interface, and get answers grounded
+in the document content.
+
+Built with **LlamaIndex** for PDF ingestion and indexing, and **LangChain**
+for prompt orchestration and answer generation.
 
 ## How it works
 
-1. Upload a PDF — it's chunked and embedded into a vector store.
-2. Ask a question — the retriever pulls the most relevant chunks.
-3. LangChain builds a grounded prompt and the LLM answers from your document.
+1. **Upload** — PDFs are uploaded to the Express backend.
+2. **Index** — LlamaIndex parses the documents and builds a vector index
+   (FAISS or Chroma).
+3. **Ask** — you type a question in the chat interface.
+4. **Answer** — a LangChain RetrievalQA chain retrieves the most relevant
+   passages from the index, and the LLM generates an answer grounded in
+   your documents.
 
 ## Tech stack
 
-- **Frontend:** React + TypeScript (Vite)
+- **Frontend:** React (Vite)
 - **Backend:** Node.js + Express
-- **AI:** LangChain
+- **Ingestion & indexing:** LlamaIndex
+- **Prompt orchestration:** LangChain (RetrievalQA chain)
+- **Vector store:** FAISS or Chroma
+- **LLM:** OpenAI API (or compatible)
+- **Uploads:** multer
+
+## Features
+
+- PDF upload to the backend
+- Automatic vector indexing of uploaded documents
+- Chat interface for asking questions about PDF content
+- Retrieval-augmented answers grounded in the source documents
+- Optional conversational memory via LangChain memory components
 
 ## Run locally
 
