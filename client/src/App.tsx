@@ -8,6 +8,7 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadedMessage, setUploadedMessage] = useState('');
+  const [pageCount, setPageCount] = useState<number | null>(null);
 
   const API_URL = 'http://localhost:4000';
 
@@ -26,6 +27,7 @@ function App() {
     const data = await response.json();
     setAnswer(data.answer)
     
+    
   }catch(error){
     console.error(error)
 
@@ -33,6 +35,7 @@ function App() {
 }
 
 async function uploadPdf(event: FormEvent){
+
   event.preventDefault();
   if(!selectedFile){
     return;
@@ -47,11 +50,9 @@ async function uploadPdf(event: FormEvent){
     })
   const data = await response.json();
   setUploadedMessage(data.message);
- 
-
+  setPageCount(data.documentCount); 
 }
 
-console.log(selectedFile);
 
 
   return (
@@ -85,6 +86,7 @@ console.log(selectedFile);
       <p>{selectedFile?.name}</p>
       <p>{uploadedMessage}</p>
       <p>{answer}</p>
+      <p>{pageCount}</p>
 
 
     </div>

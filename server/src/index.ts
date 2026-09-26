@@ -3,6 +3,7 @@ import cors from 'cors'
 const app = express();
 const PORT = 4000;
 import multer from "multer";
+import { ingestPdf } from "./ingestion";
 
 const upload = multer({
   dest: "uploads/",
@@ -29,15 +30,21 @@ app.post('/query', (request, response) => {
 
 })
 
-app.post('/upload', upload.single("pdf"), (request, response) => {
+app.post('/upload', upload.single("pdf"), async (request, response) => {
+  
+  if(!request.file?.path){
+    return response.status(400).json({message: "No PDF uploaded"})
+  }
 
-  console.log(request.file);
-  response.json({
-    message: "PDF uploaded",
+  const requestPath = request.file.path
+
+  const documents = await ingestPdf(requestPath);
+
+  response.json({message: "PDF uploaded and read",
+    documentCount: documents.length
+
   })
 })
-
-
 
 
 app.listen(PORT, () => {
