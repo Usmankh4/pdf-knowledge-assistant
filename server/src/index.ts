@@ -38,10 +38,10 @@ app.post('/upload', upload.single("pdf"), async (request, response) => {
 
   const requestPath = request.file.path
 
-  const documents = await ingestPdf(requestPath);
+  const nodes = await ingestPdf(requestPath);
 
   response.json({message: "PDF uploaded and read",
-    documentCount: documents.length
+    documentCount: nodes.length
 
   })
 })

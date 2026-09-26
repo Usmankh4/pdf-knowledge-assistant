@@ -50,7 +50,7 @@ async function uploadPdf(event: FormEvent){
     })
   const data = await response.json();
   setUploadedMessage(data.message);
-  setPageCount(data.documentCount); 
+  setPageCount(data.nodeCount); 
 }
 
 
