@@ -9,6 +9,9 @@ build/
 # Uploaded PDFs from local testing
 server/uploads/
 
+# Local Chroma persistence
+server/chroma-data/
+
 # Environment files
 .env
 .env.*
@@ -43,3 +46,6 @@ coverage/
 
 # Optional npm cache
 .npm/
+
+
+server/chroma-data/
