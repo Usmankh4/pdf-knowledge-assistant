@@ -5,7 +5,7 @@ const PORT = 4000;
 import multer from "multer";
 import { ingestPdf } from "./ingestion";
 import { retrievePdf } from "./retrieval";
-
+import { generateAnswer } from "./generation";
 const upload = multer({
   dest: "uploads/",
 })
@@ -23,12 +23,21 @@ app.get('/health', (request, response) => {
 
 app.post('/query', async (request, response) => {
 
+  // get the question sent from React
   const question = request.body.question;
 
   const retrieval = await retrievePdf(question);
 
+  const context = retrieval.map((item) => item.text).join("\n\n");
+
+
+  const answer = await generateAnswer(question, context);
+
+
+  // send the generated answer back to React
+
   response.json({
-   answer: retrieval[0].text
+   answer: answer
   })
 
 })

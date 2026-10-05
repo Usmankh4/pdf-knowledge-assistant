@@ -3,6 +3,7 @@ import { HuggingFaceEmbedding } from "@llamaindex/huggingface";
 import { MetadataMode, Settings, VectorStoreIndex } from "llamaindex";
 
 export async function retrievePdf(question: string) {
+
     const embeddingModel = new HuggingFaceEmbedding({
         modelType: "BAAI/bge-small-en-v1.5",
     });
@@ -30,6 +31,8 @@ export async function retrievePdf(question: string) {
 
     console.log(result[0].score);
     console.log(result[0].node.metadata);
+
+    
 
     const relevantNodes = result.map((item) => {
         return {
