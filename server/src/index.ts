@@ -4,6 +4,7 @@ const app = express();
 const PORT = 4000;
 import multer from "multer";
 import { ingestPdf } from "./ingestion";
+import { retrievePdf } from "./retrieval";
 
 const upload = multer({
   dest: "uploads/",
@@ -20,12 +21,14 @@ app.get('/health', (request, response) => {
   })
 })
 
-app.post('/query', (request, response) => {
+app.post('/query', async (request, response) => {
 
   const question = request.body.question;
 
+  const retrieval = await retrievePdf(question);
+
   response.json({
-    answer: `You asked: ${question}`
+   answer: retrieval[0].text
   })
 
 })
@@ -41,7 +44,7 @@ app.post('/upload', upload.single("pdf"), async (request, response) => {
   const nodes = await ingestPdf(requestPath);
 
   response.json({message: "PDF uploaded and read",
-    documentCount: nodes.length
+    nodeCount: nodes.length
 
   })
 })
