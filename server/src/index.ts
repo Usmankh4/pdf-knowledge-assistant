@@ -1,11 +1,16 @@
 import express from "express";
 import cors from 'cors'
-const app = express();
-const PORT = 4000;
 import multer from "multer";
 import { ingestPdf } from "./ingestion";
 import { retrievePdf } from "./retrieval";
 import { generateAnswer } from "./generation";
+import { randomUUID } from "node:crypto";
+
+
+
+const app = express();
+const PORT = 4000;
+
 const upload = multer({
   dest: "uploads/",
 })
@@ -26,9 +31,21 @@ app.post('/query', async (request, response) => {
   // get the question sent from React
   const question = request.body.question;
 
-  const retrieval = await retrievePdf(question);
+  const documentId = request.body.documentId;
+
+  if(!question || !documentId){
+    return response.status(400).json({
+        message: "Question and documentId are required"
+    })
+}
+
+  const retrieval = await retrievePdf(question, documentId);
+  
 
   const context = retrieval.map((item) => item.text).join("\n\n");
+  
+  const sources = [... new Set (retrieval.map((item) => item.page))];
+  
 
 
   const answer = await generateAnswer(question, context);
@@ -37,7 +54,8 @@ app.post('/query', async (request, response) => {
   // send the generated answer back to React
 
   response.json({
-   answer: answer
+   answer,
+   sources
   })
 
 })
@@ -50,11 +68,17 @@ app.post('/upload', upload.single("pdf"), async (request, response) => {
 
   const requestPath = request.file.path
 
-  const nodes = await ingestPdf(requestPath);
+  const documentId = randomUUID()
 
-  response.json({message: "PDF uploaded and read",
-    nodeCount: nodes.length
+  const nodes = await ingestPdf(requestPath,documentId);
 
+  const pageCount = nodes[0]?.metadata.total_pages ?? 0;
+
+  response.json({
+    message: "PDF uploaded and read",
+    nodeCount: nodes.length,
+    documentId: documentId,
+    pageCount
   })
 })
 

@@ -9,6 +9,8 @@ function App() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadedMessage, setUploadedMessage] = useState('');
   const [pageCount, setPageCount] = useState<number | null>(null);
+  const [documentId, setDocumentId] = useState<string| null>(null);
+  const [sources, setSources] = useState<number[]>([]);
 
   const API_URL = 'http://localhost:4000';
 
@@ -21,11 +23,13 @@ function App() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        question
+        question,
+        documentId
       })
     })
     const data = await response.json();
     setAnswer(data.answer)
+    setSources(data.sources);
     
     
   }catch(error){
@@ -50,7 +54,9 @@ async function uploadPdf(event: FormEvent){
     })
   const data = await response.json();
   setUploadedMessage(data.message);
-  setPageCount(data.nodeCount); 
+  setPageCount(data.pageCount); 
+  setDocumentId(data.documentId);
+  
 }
 
 
@@ -81,12 +87,20 @@ async function uploadPdf(event: FormEvent){
 
      
      
-      
+      <div>
+  <p>Sources:</p>
+  {sources.map((page) => (
+    <div key={page}>Page {page}</div>
+  ))}
+</div>
 
       <p>{selectedFile?.name}</p>
       <p>{uploadedMessage}</p>
       <p>{answer}</p>
       <p>{pageCount}</p>
+      
+
+  
 
 
     </div>

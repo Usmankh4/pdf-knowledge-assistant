@@ -7,11 +7,13 @@ import {SentenceSplitter, Settings, storageContextFromDefaults, VectorStoreIndex
 require("dotenv").config();
 
 
-export async function ingestPdf(filePath: string) {
+export async function ingestPdf(filePath: string, documentId: string) {
 
     // create a PDFReader object
     // PURPOSE: gives us a tool that knows how to read a PDF file
     const reader = new PDFReader();
+
+
 
 
     // use the reader to read the PDF from the filePath
@@ -33,8 +35,12 @@ export async function ingestPdf(filePath: string) {
 
     const documents = await reader.loadData(filePath);
 
-
-
+    for(const document of documents){
+        document.metadata = {
+            ...document.metadata,
+            documentId: documentId
+        }
+    }
     // configure a SentenceSplitter
 
     // PURPOSE:
