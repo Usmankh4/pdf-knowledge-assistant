@@ -45,12 +45,14 @@ export async function retrievePdf(question: string, documentId: string) {
     // result and keyword retrieve actually runs the search
     const result = await retriever.retrieve(question);
 
-    console.log(
-        result[0].node.getContent(MetadataMode.NONE)
-    );
+    if(result.length === 0){
+        return [];
+    }
+
 
     console.log(result[0].score);
-    console.log(result[0].node.metadata);
+
+
 
     
 

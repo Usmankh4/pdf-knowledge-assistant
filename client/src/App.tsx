@@ -11,12 +11,28 @@ function App() {
   const [pageCount, setPageCount] = useState<number | null>(null);
   const [documentId, setDocumentId] = useState<string| null>(null);
   const [sources, setSources] = useState<number[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:4000';
+
+  const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? "http://localhost:4000" : "");
 
 
   async function askQuestion(){
   try{
+    
+    setError(null);
+    setAnswer("");
+    setSources([]);
+
+    if(!question.trim()){
+      setError("Enter a question before submitting.")
+      return;
+    }
+
+    if(!documentId){
+      setError('Upload a PDF before asking a question');
+      return;
+    }
     const response = await fetch(`${API_URL}/query`, {
       method: "POST",
       headers: {
@@ -27,12 +43,20 @@ function App() {
         documentId
       })
     })
+
+    
     const data = await response.json();
+    if(!response.ok){
+      setError("Server could not answer your question.");
+      return;
+    }
     setAnswer(data.answer)
     setSources(data.sources);
     
     
+    
   }catch(error){
+    setError('Unable to connect to the server. Please try again.')
     console.error(error)
 
   }
@@ -53,6 +77,11 @@ async function uploadPdf(event: FormEvent){
     body: formData
     })
   const data = await response.json();
+  if (!response.ok) {
+    setError(data.message ?? "Upload failed.");
+    return;
+  }
+  setError(null);
   setUploadedMessage(data.message);
   setPageCount(data.pageCount); 
   setDocumentId(data.documentId);
@@ -70,6 +99,7 @@ async function uploadPdf(event: FormEvent){
       onChange={(e) => setQuestion(e.target.value)}
       />
       <button onClick={askQuestion}>Ask Question</button>
+      
 
       <form onSubmit={uploadPdf}>
       <input
@@ -83,6 +113,9 @@ async function uploadPdf(event: FormEvent){
       <button type='submit'>Upload PDF</button>
       </form>
 
+
+      {error}
+
       
 
      
@@ -93,6 +126,7 @@ async function uploadPdf(event: FormEvent){
     <div key={page}>Page {page}</div>
   ))}
 </div>
+
 
       <p>{selectedFile?.name}</p>
       <p>{uploadedMessage}</p>

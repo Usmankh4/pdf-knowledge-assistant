@@ -32,6 +32,7 @@ Desktop.ini
 
 # Editor / IDE
 .vscode/
+.vercel/
 .idea/
 *.swp
 *.swo
