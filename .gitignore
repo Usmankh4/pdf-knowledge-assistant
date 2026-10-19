@@ -32,7 +32,6 @@ Desktop.ini
 
 # Editor / IDE
 .vscode/
-.vercel/
 .idea/
 *.swp
 *.swo
@@ -40,7 +39,6 @@ Desktop.ini
 
 # Vite
 client/dist/
-server/public/
 
 # Coverage / test
 coverage/

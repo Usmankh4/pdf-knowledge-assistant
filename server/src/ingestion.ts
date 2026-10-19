@@ -3,9 +3,8 @@ import { PDFReader } from "@llamaindex/readers/pdf";
 import { ChromaVectorStore } from "@llamaindex/chroma";
 
 import {SentenceSplitter, Settings, storageContextFromDefaults, VectorStoreIndex} from "llamaindex";
-import dotenv from "dotenv";
 
-dotenv.config();
+require("dotenv").config();
 
 
 export async function ingestPdf(filePath: string, documentId: string) {
