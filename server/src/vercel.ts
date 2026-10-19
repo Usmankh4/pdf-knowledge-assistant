@@ -1,6 +1,6 @@
-import { createApp } from "./app";
-import { ingestPdfCloud, retrieveCloud } from "./cloud-rag";
-import { generateWithGateway } from "./generate-gateway";
+import { createApp } from "./app.js";
+import { ingestPdfCloud, retrieveCloud } from "./cloud-rag.js";
+import { generateWithGateway } from "./generate-gateway.js";
 
 const app = createApp({
   ingest: ingestPdfCloud,

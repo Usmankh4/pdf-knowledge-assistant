@@ -1,7 +1,7 @@
-import { createApp } from "./app";
-import { generateAnswer } from "./generation";
-import { ingestPdf } from "./ingestion";
-import { retrievePdf } from "./retrieval";
+import { createApp } from "./app.js";
+import { generateAnswer } from "./generation.js";
+import { ingestPdf } from "./ingestion.js";
+import { retrievePdf } from "./retrieval.js";
 
 const PORT = Number(process.env.PORT) || 4000;
 
