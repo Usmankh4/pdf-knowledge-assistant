@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-
+import { askPDFQuestion, uploadDocument } from './services/api';
 
 import './App.css'
 
@@ -12,14 +12,17 @@ function App() {
   const [documentId, setDocumentId] = useState<string| null>(null);
   const [sources, setSources] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  
 
 
-  const API_URL = 'http://localhost:4000';
+  
 
 
   async function askQuestion(){
   try{
-    
+  
     setError(null);
     setAnswer("");
     setSources([]);
@@ -33,59 +36,68 @@ function App() {
       setError('Upload a PDF before asking a question');
       return;
     }
-    const response = await fetch(`${API_URL}/query`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        question,
-        documentId
-      })
-    })
 
-    
-    const data = await response.json();
-    if(!response.ok){
-      setError("Server could not answer your question.");
-      return;
-    }
+    setLoading(true);
+
+    const data = await askPDFQuestion(question, documentId)
+   
     setAnswer(data.answer)
     setSources(data.sources);
+    setQuestion("");
     
-    
-    
+
   }catch(error){
     setError('Unable to connect to the server. Please try again.')
     console.error(error)
+
+  } finally{
+    setLoading(false);
 
   }
 }
 
 async function uploadPdf(event: FormEvent){
 
+
+
+  try{
   event.preventDefault();
+  
   if(!selectedFile){
     return;
   }
+  setDocumentId(null);
+  setUploadedMessage("");
+  setAnswer('');
+  setPageCount(null);
+  setSources([])
+  setError(null);
+  setIsUploading(true);
 
-  const formData = new FormData();
-  formData.append('pdf', selectedFile);
-
-  const response = await fetch(`${API_URL}/upload`, {
-    method: "POST",
-    body: formData
-    })
-  const data = await response.json();
+  const data = await uploadDocument(selectedFile);
   setUploadedMessage(data.message);
   setPageCount(data.pageCount); 
   setDocumentId(data.documentId);
+  setSelectedFile(null);
+  setQuestion("");
+ 
+
+  }catch(error){
+    console.error(error)
+    setError('Unable to connect to the server. Please try again.');
+
+  } finally{
+    setIsUploading(false);
+    
+    
+  }
   
 }
 
 
 
   return (
+    
     <div>
     
 
@@ -93,11 +105,13 @@ async function uploadPdf(event: FormEvent){
       value={question}
       onChange={(e) => setQuestion(e.target.value)}
       />
-      <button onClick={askQuestion}>Ask Question</button>
+
+      <button disabled={loading || isUploading || !documentId} onClick={askQuestion}>{loading ? 'Loading' : 'Ask a question'}</button>
       
 
       <form onSubmit={uploadPdf}>
       <input
+      disabled={isUploading}
       type='file'
       accept='application/pdf'
       onChange={(event) => {
@@ -105,7 +119,7 @@ async function uploadPdf(event: FormEvent){
         setSelectedFile(file)
       }} 
       />
-      <button type='submit'>Upload PDF</button>
+      <button disabled={isUploading || !selectedFile} type='submit'>{isUploading ? "Loading" : "Upload PDF"}</button>
       </form>
 
 
