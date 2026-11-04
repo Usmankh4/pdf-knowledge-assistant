@@ -1,22 +1,10 @@
-import { ChromaVectorStore } from "@llamaindex/chroma";
-import { HuggingFaceEmbedding } from "@llamaindex/huggingface";
-import {MetadataMode,Settings, VectorStoreIndex,type MetadataFilters} from "llamaindex";
+import {MetadataMode, VectorStoreIndex,type MetadataFilters} from "llamaindex";
+import {vectorStore} from "./ragInfrastructure";
+
+
+
 
 export async function retrievePdf(question: string, documentId: string) {
-
-
-    const embeddingModel = new HuggingFaceEmbedding({
-        modelType: "BAAI/bge-small-en-v1.5",
-    });
-
-    Settings.embedModel = embeddingModel;
-
-    const vectorStore = new ChromaVectorStore({
-        collectionName: "pdf-knowledge",
-        chromaClientParams: {
-            path: "http://localhost:8000"
-        }
-    });
 
     // index is for WHAT is being searched. In this case its our vectorStore that we created: new ChromaVectorStore({...})
 
@@ -37,7 +25,7 @@ export async function retrievePdf(question: string, documentId: string) {
     // retriver is for HOW / by what object it gets searched
 
     const retriever = index.asRetriever({
-        similarityTopK: 2, 
+        similarityTopK: 3, 
         filters
     });
 
@@ -51,10 +39,6 @@ export async function retrievePdf(question: string, documentId: string) {
 
 
     console.log(result[0].score);
-
-
-
-    
 
     const relevantNodes = result.map((item) => {
         return {

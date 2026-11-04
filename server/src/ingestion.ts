@@ -1,22 +1,20 @@
-import { HuggingFaceEmbedding } from "@llamaindex/huggingface";
 import { PDFReader } from "@llamaindex/readers/pdf";
-import { ChromaVectorStore } from "@llamaindex/chroma";
-
-import {SentenceSplitter, Settings, storageContextFromDefaults, VectorStoreIndex} from "llamaindex";
-
-require("dotenv").config();
+import { vectorStore } from "./ragInfrastructure";
+import {
+    SentenceSplitter,
+    storageContextFromDefaults,
+    VectorStoreIndex
+} from "llamaindex";
 
 
 export async function ingestPdf(filePath: string, documentId: string) {
 
     // create a PDFReader object
     // PURPOSE: gives us a tool that knows how to read a PDF file
+
     const reader = new PDFReader();
 
-
-
-
-    // use the reader to read the PDF from the filePath
+    // read the PDF from the filePath
     // filePath comes from request.file.path inside index.ts
 
     // INPUT:
@@ -28,6 +26,7 @@ export async function ingestPdf(filePath: string, documentId: string) {
     // documents -> Document[]
 
     // Example:
+    //
     // [
     //   Document { text: "Page 1 text..." },
     //   Document { text: "Page 2 text..." }
@@ -35,12 +34,25 @@ export async function ingestPdf(filePath: string, documentId: string) {
 
     const documents = await reader.loadData(filePath);
 
-    for(const document of documents){
+    documents.forEach((document,index) => {
+        console.log(`\n========== DOCUMENT ${index + 1} ==========`);
+        console.log(document.getContent());
+    })
+
+
+    // attach the documentId to every document
+    //
+    // this lets us later filter retrieval results
+    // so we only search chunks belonging to the current PDF
+
+    for (const document of documents) {
         document.metadata = {
             ...document.metadata,
             documentId: documentId
-        }
+        };
     }
+
+
     // configure a SentenceSplitter
 
     // PURPOSE:
@@ -80,8 +92,7 @@ export async function ingestPdf(filePath: string, documentId: string) {
     });
 
 
-
-    // now actually USE the splitter
+    // now actually use the splitter
 
     // INPUT:
     // documents -> Document[]
@@ -107,93 +118,18 @@ export async function ingestPdf(filePath: string, documentId: string) {
 
     const nodes = splitter.getNodesFromDocuments(documents);
 
+    nodes.forEach((item, index) => {
+        console.log(`Chunked ${index + 1}`)
+        console.log(item.getContent())
+    })
 
 
-    // configure the embedding model
-
-    // PURPOSE:
-    // turns Node text into numerical vectors
-
-    // Example:
+    // create a StorageContext using the shared vectorStore
     //
-    // "FAISS or Chroma can be used"
+    // vectorStore comes from ragInfrastructure.ts
     //
-    // ↓ embedding model
-    //
-    // [
-    //   -0.088,
-    //   -0.019,
-    //   -0.044,
-    //   ...
-    // ]
-
-    // BAAI/bge-small-en-v1.5 gives us 384 numbers per embedding
-
-    // IMPORTANT:
-    // creating embeddingModel does NOT embed anything yet
-
-    const embeddingModel = new HuggingFaceEmbedding({
-        modelType: "BAAI/bge-small-en-v1.5"
-    });
-
-
-
-    // set our embedding model globally inside LlamaIndex
-
     // PURPOSE:
-    // whenever LlamaIndex needs to create an embedding,
-    // use this HuggingFace model
-
-    // this still does NOT create an embedding yet
-
-    Settings.embedModel = embeddingModel;
-
-
-
-    // create a ChromaVectorStore object
-
-    // PURPOSE:
-    // gives LlamaIndex a way to talk to our Chroma database
-
-    // Chroma database:
-    // http://localhost:8000
-
-    // ChromaVectorStore:
-    // JavaScript object that knows how to connect to Chroma
-
-    // collectionName:
-    // tells Chroma which collection we want to use
-
-    // Chroma
-    // └── pdf-knowledge
-    //      ├── Node 1 -> text + metadata + vector
-    //      ├── Node 2 -> text + metadata + vector
-    //      └── Node 3 -> text + metadata + vector
-
-    // IMPORTANT:
-    // nothing has been inserted into Chroma yet
-
-    const vectorStore = new ChromaVectorStore({
-        collectionName: "pdf-knowledge",
-        chromaClientParams: {
-            path: "http://localhost:8000"
-        }
-    });
-
-
-
-    // create a StorageContext using our vectorStore
-
-    // PURPOSE:
-    // tells LlamaIndex what storage setup to use
-
-    // vectorStore already knows:
-    //
-    // Chroma
-    // ↓
-    // localhost:8000
-    // ↓
-    // "pdf-knowledge"
+    // tells LlamaIndex where the vectors should be stored
 
     // INPUT:
     // vectorStore
@@ -202,62 +138,49 @@ export async function ingestPdf(filePath: string, documentId: string) {
     // storageContext
 
     // IMPORTANT:
-    // this does NOT store anything yet
+    // creating storageContext does NOT store anything yet
 
     const storageContext = await storageContextFromDefaults({
         vectorStore
     });
 
 
-
     // build the VectorStoreIndex
-
-    // PURPOSE:
-    // this is where everything gets connected together
+    //
+    // this is the step where the nodes actually get indexed
 
     // INPUT:
+    //
     // nodes
     // +
     // storageContext
 
-    // LlamaIndex also knows:
-    // Settings.embedModel = embeddingModel
-
 
     // DATA FLOW:
-
-    // nodes[0].text
     //
+    // nodes
     // ↓
-    //
-    // HuggingFaceEmbedding
-    //
+    // embedding model configured in ragInfrastructure.ts
     // ↓
-    //
-    // 384-number vector
-    //
+    // vectors
     // ↓
-    //
     // storageContext
-    //
     // ↓
-    //
-    // ChromaVectorStore
-    //
+    // shared vectorStore
     // ↓
-    //
-    // Chroma "pdf-knowledge"
+    // Chroma
 
 
-    // this happens for every Node
-
-    // IMPORTANT:
     // BEFORE this line:
-    // nodes exist, but are not indexed yet
+    //
+    // nodes exist in memory
+    // but they have not been indexed yet
+
 
     // AFTER this finishes:
-    // nodes have been embedded
-    // and their vectors are stored in Chroma
+    //
+    // node text has been embedded
+    // and the vectors are stored in Chroma
 
     await VectorStoreIndex.init({
         nodes,
@@ -268,11 +191,10 @@ export async function ingestPdf(filePath: string, documentId: string) {
     console.log("Index created successfully");
 
 
-
     // return the nodes back to index.ts
-
+    //
     // index.ts:
-    // const nodes = await ingestPdf(requestPath)
+    // const nodes = await ingestPdf(requestPath, documentId)
 
     return nodes;
 }
