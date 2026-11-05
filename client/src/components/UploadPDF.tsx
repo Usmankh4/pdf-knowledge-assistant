@@ -13,8 +13,9 @@ type UploadFormProps = {
 function UploadPDF({selectedFile, isUploading, setSelectedFile, uploadPdf, uploadedMessage, pageCount, uploadError}: UploadFormProps ){
 
     return (
-        <div>
-            <form onSubmit={uploadPdf}>
+        <section>
+            <h2>Document</h2>
+            <form className="row" onSubmit={uploadPdf}>
             <input 
 
             type="file"
@@ -30,12 +31,12 @@ function UploadPDF({selectedFile, isUploading, setSelectedFile, uploadPdf, uploa
             <button type="submit" disabled={isUploading || !selectedFile}> {isUploading ? "Loading..." : "Upload a PDF"} </button>
             </form>
 
-            {uploadedMessage && <p>{uploadedMessage}</p>}
-            {pageCount!== null && <p> Page Count: {pageCount}</p>}
-            {uploadError !==null && <p>{uploadError}</p>}
+            {uploadedMessage && <p className="note">{uploadedMessage}</p>}
+            {pageCount!== null && <p className="note">{pageCount} pages</p>}
+            {uploadError !==null && <p className="error">{uploadError}</p>}
 
 
-        </div>
+        </section>
     )
 
 }

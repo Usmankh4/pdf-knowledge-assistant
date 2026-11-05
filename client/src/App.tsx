@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { askPDFQuestion, uploadDocument } from './services/api';
 
-import './App.css'
 import QuestionForm from './components/QuestionForm';
 import UploadPDF from './components/UploadPDF';
 import AnswerDisplay from './components/AnswerDisplay';
@@ -101,8 +100,17 @@ async function uploadPdf(event: FormEvent){
 
   return (
     
-    <div>
-    
+    <div className="app">
+      <header className="header">
+        <h1>PDF assistant</h1>
+        <p>Upload a PDF, then ask a question about it.</p>
+      </header>
+
+      <UploadPDF 
+      selectedFile={selectedFile} 
+      isUploading={isUploading} 
+      setSelectedFile={setSelectedFile} 
+      uploadPdf={uploadPdf} uploadedMessage={uploadedMessage} pageCount={pageCount} uploadError={uploadError}/>
 
      <QuestionForm 
      question={question} 
@@ -112,13 +120,6 @@ async function uploadPdf(event: FormEvent){
      setQuestion={setQuestion} 
      askQuestion={askQuestion}
       />
-      
-
-      <UploadPDF 
-      selectedFile={selectedFile} 
-      isUploading={isUploading} 
-      setSelectedFile={setSelectedFile} 
-      uploadPdf={uploadPdf} uploadedMessage={uploadedMessage} pageCount={pageCount} uploadError={uploadError}/>
 
 
       <AnswerDisplay 

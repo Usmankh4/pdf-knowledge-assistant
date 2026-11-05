@@ -11,12 +11,19 @@ type QuestionFormProps = {
 function QuestionForm({question, loading, isUploading, hasDocument, setQuestion, askQuestion}: QuestionFormProps){
 
     return(
-        <div>
-            <input value={question} onChange={(e) => setQuestion(e.target.value)} 
+        <section>
+            <h2>Question</h2>
+            <div className="row">
+            <input
+              type="text"
+              value={question}
+              placeholder="Ask about the document"
+              onChange={(e) => setQuestion(e.target.value)}
              />
 
-             <button disabled={loading || isUploading || !hasDocument} onClick={askQuestion}>{loading ? "Loading..." : "Ask a question"}</button>
-        </div>
+             <button disabled={loading || isUploading || !hasDocument} onClick={askQuestion}>{loading ? "Loading..." : "Ask"}</button>
+            </div>
+        </section>
     )
     
 }
