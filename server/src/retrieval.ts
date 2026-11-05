@@ -25,7 +25,7 @@ export async function retrievePdf(question: string, documentId: string) {
     // retriver is for HOW / by what object it gets searched
 
     const retriever = index.asRetriever({
-        similarityTopK: 3, 
+        similarityTopK: 5, 
         filters
     });
 

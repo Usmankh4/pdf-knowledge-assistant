@@ -1,0 +1,205 @@
+{
+  "config": {
+    "similarityTopK": 3,
+    "benchmarkName": "ITEC3710 Week 3",
+    "documentId": "c4a95580-4a4a-4c16-a7fb-c2d3c4d1a3f8"
+  },
+  "cases": [
+    {
+      "id": 1,
+      "question": "What certifications are offered by ISC2?",
+      "answerable": true,
+      "expectedPage": 5,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 2,
+      "question": "Which professional certifications is ISACA known for, and what roles are they suited for?",
+      "answerable": true,
+      "expectedPage": 6,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 3,
+      "question": "What types of security training and certifications does the SANS Institute provide?",
+      "answerable": true,
+      "expectedPage": 7,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 4,
+      "question": "What three components are combined in an Information Assurance Management System?",
+      "answerable": true,
+      "expectedPage": 9,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 5,
+      "question": "What stages make up the information life cycle?",
+      "answerable": true,
+      "expectedPage": 10,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 6,
+      "question": "What information is included in the Statement of Applicability?",
+      "answerable": true,
+      "expectedPage": 14,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 7,
+      "question": "What activities are performed during the Do phase of the PDCA model?",
+      "answerable": true,
+      "expectedPage": 15,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 8,
+      "question": "What activities are performed during the Check phase of the PDCA model?",
+      "answerable": true,
+      "expectedPage": 16,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 9,
+      "question": "What are the four phases of Boyd’s OODA loop?",
+      "answerable": true,
+      "expectedPage": 18,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 10,
+      "question": "What are the six stages of the cybersecurity kill chain described in the lecture?",
+      "answerable": true,
+      "expectedPage": 19,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 11,
+      "question": "What is the difference between due care and due diligence?",
+      "answerable": true,
+      "expectedPage": 21,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 12,
+      "question": "What privacy and data protection principles are identified by the OECD?",
+      "answerable": true,
+      "expectedPage": 24,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 13,
+      "question": "Who won the 2022 FIFA World Cup?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 14,
+      "question": "What is the boiling point of water?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 15,
+      "question": "What is the capital of Australia?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 16,
+      "question": "How does photosynthesis convert sunlight into energy?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 17,
+      "question": "In what year did Apollo 11 land on the Moon?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    }
+  ],
+  "metrics": {
+    "top1Accuracy": 0,
+    "recallAt3": 0,
+    "mrr": 0,
+    "answerableAverageTopScore": null,
+    "answerableMinimumTopScore": null,
+    "unanswerableAverageTopScore": null,
+    "unanswerableMaximumTopScore": null
+  }
+}

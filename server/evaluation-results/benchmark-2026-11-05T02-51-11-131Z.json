@@ -1,0 +1,477 @@
+{
+  "config": {
+    "similarityTopK": 3,
+    "benchmarkName": "ITEC3710 Week 3",
+    "documentId": "fc245689-0a8b-4cab-817a-d765c6d37b13"
+  },
+  "cases": [
+    {
+      "id": 1,
+      "question": "What certifications are offered by ISC2?",
+      "answerable": true,
+      "expectedPage": 5,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 5,
+          "score": 0.43853562999999995
+        },
+        {
+          "rank": 2,
+          "page": 4,
+          "score": 0.21992420000000001
+        },
+        {
+          "rank": 3,
+          "page": 6,
+          "score": 0.21871423999999995
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 2,
+      "question": "Which professional certifications is ISACA known for, and what roles are they suited for?",
+      "answerable": true,
+      "expectedPage": 6,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 6,
+          "score": 0.4072692
+        },
+        {
+          "rank": 2,
+          "page": 3,
+          "score": 0.29771420000000004
+        },
+        {
+          "rank": 3,
+          "page": 5,
+          "score": 0.27357125000000004
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 3,
+      "question": "What types of security training and certifications does the SANS Institute provide?",
+      "answerable": true,
+      "expectedPage": 7,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 7,
+          "score": 0.4526774
+        },
+        {
+          "rank": 2,
+          "page": 5,
+          "score": 0.286918
+        },
+        {
+          "rank": 3,
+          "page": 3,
+          "score": 0.26323354
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 4,
+      "question": "What three components are combined in an Information Assurance Management System?",
+      "answerable": true,
+      "expectedPage": 9,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 9,
+          "score": 0.3890772
+        },
+        {
+          "rank": 2,
+          "page": 3,
+          "score": 0.3131254
+        },
+        {
+          "rank": 3,
+          "page": 2,
+          "score": 0.3039819
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 5,
+      "question": "What stages make up the information life cycle?",
+      "answerable": true,
+      "expectedPage": 10,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 10,
+          "score": 0.51061052
+        },
+        {
+          "rank": 2,
+          "page": 11,
+          "score": 0.2362027
+        },
+        {
+          "rank": 3,
+          "page": 2,
+          "score": 0.23029995000000003
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 6,
+      "question": "What information is included in the Statement of Applicability?",
+      "answerable": true,
+      "expectedPage": 14,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 14,
+          "score": 0.35586189999999995
+        },
+        {
+          "rank": 2,
+          "page": 10,
+          "score": 0.21162570000000003
+        },
+        {
+          "rank": 3,
+          "page": 4,
+          "score": 0.17577589999999998
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 7,
+      "question": "What activities are performed during the Do phase of the PDCA model?",
+      "answerable": true,
+      "expectedPage": 15,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 12,
+          "score": 0.47046869999999996
+        },
+        {
+          "rank": 2,
+          "page": 19,
+          "score": 0.224634
+        },
+        {
+          "rank": 3,
+          "page": 10,
+          "score": 0.20969360000000004
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": false,
+      "hitAt3": false,
+      "reciprocalRank": 0
+    },
+    {
+      "id": 8,
+      "question": "What activities are performed during the Check phase of the PDCA model?",
+      "answerable": true,
+      "expectedPage": 16,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 12,
+          "score": 0.5573870000000001
+        },
+        {
+          "rank": 2,
+          "page": 16,
+          "score": 0.24087035999999995
+        },
+        {
+          "rank": 3,
+          "page": 15,
+          "score": 0.22516950000000002
+        }
+      ],
+      "expectedPageRank": 2,
+      "top1Hit": false,
+      "hitAt3": true,
+      "reciprocalRank": 0.5
+    },
+    {
+      "id": 9,
+      "question": "What are the four phases of Boyd’s OODA loop?",
+      "answerable": true,
+      "expectedPage": 18,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 18,
+          "score": 0.4581995
+        },
+        {
+          "rank": 2,
+          "page": 27,
+          "score": 0.17044466999999996
+        },
+        {
+          "rank": 3,
+          "page": 2,
+          "score": 0.0971052
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 10,
+      "question": "What are the six stages of the cybersecurity kill chain described in the lecture?",
+      "answerable": true,
+      "expectedPage": 19,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 19,
+          "score": 0.61202532
+        },
+        {
+          "rank": 2,
+          "page": 2,
+          "score": 0.3625499
+        },
+        {
+          "rank": 3,
+          "page": 27,
+          "score": 0.33570814000000004
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the difference between due care and due diligence?",
+      "answerable": true,
+      "expectedPage": 21,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 21,
+          "score": 0.52986464
+        },
+        {
+          "rank": 2,
+          "page": 27,
+          "score": -0.005201299999999964
+        },
+        {
+          "rank": 3,
+          "page": 25,
+          "score": -0.07281040000000005
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 12,
+      "question": "What privacy and data protection principles are identified by the OECD?",
+      "answerable": true,
+      "expectedPage": 24,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 24,
+          "score": 0.67738196
+        },
+        {
+          "rank": 2,
+          "page": 11,
+          "score": 0.21500324999999998
+        },
+        {
+          "rank": 3,
+          "page": 2,
+          "score": 0.19954306
+        }
+      ],
+      "expectedPageRank": 1,
+      "top1Hit": true,
+      "hitAt3": true,
+      "reciprocalRank": 1
+    },
+    {
+      "id": 13,
+      "question": "Who won the 2022 FIFA World Cup?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 24,
+          "score": -0.19262979999999996
+        },
+        {
+          "rank": 2,
+          "page": 17,
+          "score": -0.2038755000000001
+        },
+        {
+          "rank": 3,
+          "page": 27,
+          "score": -0.21909240000000008
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 14,
+      "question": "What is the boiling point of water?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 28,
+          "score": -0.15010900000000005
+        },
+        {
+          "rank": 2,
+          "page": 29,
+          "score": -0.15984259999999995
+        },
+        {
+          "rank": 3,
+          "page": 25,
+          "score": -0.16439460000000006
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 15,
+      "question": "What is the capital of Australia?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 6,
+          "score": -0.14992819999999996
+        },
+        {
+          "rank": 2,
+          "page": 28,
+          "score": -0.1747924999999999
+        },
+        {
+          "rank": 3,
+          "page": 17,
+          "score": -0.18162560000000005
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 16,
+      "question": "How does photosynthesis convert sunlight into energy?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 10,
+          "score": -0.1579716
+        },
+        {
+          "rank": 2,
+          "page": 11,
+          "score": -0.2154484000000001
+        },
+        {
+          "rank": 3,
+          "page": 19,
+          "score": -0.2575915
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    },
+    {
+      "id": 17,
+      "question": "In what year did Apollo 11 land on the Moon?",
+      "answerable": false,
+      "expectedPage": null,
+      "retrieved": [
+        {
+          "rank": 1,
+          "page": 28,
+          "score": -0.14225719999999997
+        },
+        {
+          "rank": 2,
+          "page": 11,
+          "score": -0.1429879999999999
+        },
+        {
+          "rank": 3,
+          "page": 17,
+          "score": -0.16429000000000005
+        }
+      ],
+      "expectedPageRank": null,
+      "top1Hit": null,
+      "hitAt3": null,
+      "reciprocalRank": null
+    }
+  ],
+  "metrics": {
+    "top1Accuracy": 83.33333333333334,
+    "recallAt3": 91.66666666666666,
+    "mrr": 0.875,
+    "answerableAverageTopScore": 0.48827991416666655,
+    "answerableMinimumTopScore": 0.35586189999999995,
+    "unanswerableAverageTopScore": -0.15857916,
+    "unanswerableMaximumTopScore": -0.14225719999999997
+  }
+}

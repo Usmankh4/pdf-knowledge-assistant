@@ -27,7 +27,7 @@ uploadPDFRouter.post("/", upload.single("pdf"), async (request, response) => {
 
         const pageCount = nodes[0]?.metadata.total_pages ?? 0;
         
-        response.json({
+       return response.json({
         message: "PDF Uploaded and Read!",
         nodeCount: nodes.length,
         pageCount,

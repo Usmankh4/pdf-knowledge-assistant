@@ -10,7 +10,6 @@ type UploadResponse = {
     nodeCount: number,
     documentId: string,
     pageCount: number,
-
 }
 export async function askPDFQuestion(question: string, documentId: string):Promise<QueryResponse>{
     const response = await fetch(`${API_URL}/query`, {
@@ -39,7 +38,6 @@ export async function uploadDocument(selectedFile: File):Promise<UploadResponse>
         method: "POST",
         body: formData
     })
-
     const data = await response.json();
     if(!response.ok){
         throw new Error("Request failed");

@@ -6,6 +6,9 @@ const queryRouter = Router();
 
 queryRouter.post("/", async (request, response) => {
 
+
+
+    
   // get the question and documentId sent from React
   const question = request.body.question;
   const documentId = request.body.documentId;
